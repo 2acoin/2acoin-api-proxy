@@ -1,9 +1,9 @@
 'use strict'
 
-const 2ACoinAPI = require('./')
+const TwoACoinAPI = require('./')
 const util = require('util')
 
-var server = new 2ACoinAPI()
+var server = new TwoACoinAPI()
 
 function log (message) {
   console.log(util.format('%s: %s', (new Date()).toUTCString(), message))

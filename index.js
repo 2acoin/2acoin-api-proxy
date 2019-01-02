@@ -14,7 +14,7 @@ const util = require('util')
 const Request = require('request-promise')
 const bodyparser = require('body-parser')
 const NodeCache = require('node-cache')
-const 2ACoind = require('turtlecoin-rpc').TurtleCoind
+const TwoACoind = require('turtlecoin-rpc').TurtleCoind
 const BlockChainCache = require('turtlecoin-blockexplorer-cache')
 const targetBlockTime = 90
 const backupSeeds = [
@@ -700,7 +700,7 @@ Self.prototype._get = function (node, port, method) {
 */
 
 Self.prototype._getInfo = function (node, port) {
-  const rpc = new 2ACoind({
+  const rpc = new TwoACoind({
     host: node || this.defaultHost,
     port: port || this.defaultPort
   })
@@ -726,7 +726,7 @@ Self.prototype._getInfo = function (node, port) {
 }
 
 Self.prototype._feeInfo = function (node, port) {
-  const rpc = new 2ACoind({
+  const rpc = new TwoACoind({
     host: node || this.defaultHost,
     port: port || this.defaultPort
   })
@@ -751,7 +751,7 @@ Self.prototype._feeInfo = function (node, port) {
 }
 
 Self.prototype._getHeight = function (node, port) {
-  const rpc = new TurtleCoind({
+  const rpc = new TwoACoind({
     host: node || this.defaultHost,
     port: port || this.defaultPort
   })
@@ -776,7 +776,7 @@ Self.prototype._getHeight = function (node, port) {
 }
 
 Self.prototype._getTransactions = function (node, port) {
-  const rpc = new 2ACoind({
+  const rpc = new TwoACoind({
     host: node || this.defaultHost,
     port: port || this.defaultPort
   })
@@ -801,7 +801,7 @@ Self.prototype._getTransactions = function (node, port) {
 }
 
 Self.prototype._getPeers = function (node, port) {
-  const rpc = new 2ACoind({
+  const rpc = new TwoACoind({
     host: node || this.defaultHost,
     port: port || this.defaultPort
   })
@@ -938,7 +938,7 @@ Self.prototype._processJsonRPC = function (content, node, port) {
 
 Self.prototype.getBlocks = function (opts) {
   return new Promise((resolve, reject) => {
-    const rpc = new 2ACoind({
+    const rpc = new TwoACoind({
       host: opts.host,
       port: opts.port
     })
@@ -958,7 +958,7 @@ Self.prototype.getBlocks = function (opts) {
 
 Self.prototype.getBlock = function (opts) {
   return new Promise((resolve, reject) => {
-    const rpc = new 2ACoind({
+    const rpc = new TwoACoind({
       host: opts.host,
       port: opts.port
     })
@@ -978,7 +978,7 @@ Self.prototype.getBlock = function (opts) {
 
 Self.prototype.getTransaction = function (opts) {
   return new Promise((resolve, reject) => {
-    const rpc = new 2ACoind({
+    const rpc = new TwoACoind({
       host: opts.host,
       port: opts.port
     })
@@ -1010,7 +1010,7 @@ Self.prototype.getTransactionHashesByPaymentId = function (opts) {
 }
 
 Self.prototype.getTransactionPool = function (opts) {
-  const rpc = new 2ACoind({
+  const rpc = new TwoACoind({
     host: opts.host,
     port: opts.port
   })
@@ -1034,7 +1034,7 @@ Self.prototype.getTransactionPool = function (opts) {
 
 Self.prototype.getBlockCount = function (opts) {
   return new Promise((resolve, reject) => {
-    const rpc = new 2ACoind({
+    const rpc = new TwoACoind({
       host: opts.host,
       port: opts.port
     })
@@ -1061,7 +1061,7 @@ Self.prototype.getBlockCount = function (opts) {
 
 Self.prototype.getBlockHash = function (opts) {
   return new Promise((resolve, reject) => {
-    const rpc = new 2ACoind({
+    const rpc = new TwoACoind({
       host: opts.host,
       port: opts.port
     })
@@ -1081,7 +1081,7 @@ Self.prototype.getBlockHash = function (opts) {
 
 Self.prototype.getLastBlockHeader = function (opts) {
   return new Promise((resolve, reject) => {
-    const rpc = new 2ACoind({
+    const rpc = new TwoACoind({
       host: opts.host,
       port: opts.port
     })
@@ -1097,7 +1097,7 @@ Self.prototype.getLastBlockHeader = function (opts) {
 
 Self.prototype.getBlockHeaderByHash = function (opts) {
   return new Promise((resolve, reject) => {
-    const rpc = new 2ACoind({
+    const rpc = new TwoACoind({
       host: opts.host,
       port: opts.port
     })
@@ -1117,7 +1117,7 @@ Self.prototype.getBlockHeaderByHash = function (opts) {
 
 Self.prototype.getBlockHeaderByHeight = function (opts) {
   return new Promise((resolve, reject) => {
-    const rpc = new 2ACoind({
+    const rpc = new TwoACoind({
       host: opts.host,
       port: opts.port
     })
@@ -1136,7 +1136,7 @@ Self.prototype.getBlockHeaderByHeight = function (opts) {
 }
 
 Self.prototype.getCurrencyId = function (opts) {
-  const rpc = new 2ACoind({
+  const rpc = new TwoACoind({
     host: opts.host,
     port: opts.port
   })
@@ -1158,7 +1158,7 @@ Self.prototype.getCurrencyId = function (opts) {
 }
 
 Self.prototype.getBlockTemplate = function (opts) {
-  const rpc = new 2ACoind({
+  const rpc = new TwoACoind({
     host: opts.host,
     port: opts.port
   })
@@ -1169,7 +1169,7 @@ Self.prototype.getBlockTemplate = function (opts) {
 }
 
 Self.prototype.submitBlock = function (opts) {
-  const rpc = new 2ACoind({
+  const rpc = new TwoACoind({
     host: opts.host,
     port: opts.port
   })
@@ -1179,7 +1179,7 @@ Self.prototype.submitBlock = function (opts) {
 }
 
 Self.prototype._jsonRpc = function (opts) {
-  const rpc = new 2ACoind({
+  const rpc = new TwoACoind({
     host: opts.host,
     port: opts.port
   })
@@ -1386,10 +1386,10 @@ Self.prototype._getPoolList = function () {
       uri: poolList,
       json: true
     }).then((data) => {
-      Object.keys(data).forEach((elem) => {
+      Object.keys(data.pools).forEach((elem) => {
         pools.push({
           name: elem,
-          url: util.format('%sstats', data[elem].api)
+          url: util.format('%sstats', data.pools[elem].api)
         })
       })
       return resolve(pools)
