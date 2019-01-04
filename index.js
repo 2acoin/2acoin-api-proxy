@@ -620,12 +620,12 @@ function Self (opts) {
          hash: data.hash
        }).then((data) => {
           var newdata = {
-            coinSupply: data.alreadyGeneratedCoins / 100000000,
+            coinSupply: util.format('%s', data.alreadyGeneratedCoins / 100000000),
             coinSupplyRaw: data.alreadyGeneratedCoins,
-            coinReserve: 1791000.00000000,
-            coinReserveRaw: 179100000000000,
-            coinMaint: 358200.00000000,
-            coinMaintRaw: 35820000000000
+            coinReserve: '1791000.00000000',
+            coinReserveRaw: '179100000000000',
+            coinMaint: '358200.00000000',
+            coinMaintRaw: '35820000000000'
           }
           return response.json({
             jsonrpc: '2.0',
