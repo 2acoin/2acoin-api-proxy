@@ -1403,10 +1403,10 @@ Self.prototype._getPoolList = function () {
     }).then((data) => {
       Object.keys(data.pools).forEach((elem) => {
         pools.push({
-          name: name,
-		  url: url,
+          name: data.pools[elem].name,
+		  url: data.pools[elem].url,
           api: util.format('%sstats', data.pools[elem].api),
-		  address: miningAddress
+		  address: data.pools[elem].miningAddress
         })
       })
       return resolve(pools)
@@ -1426,9 +1426,9 @@ Self.prototype._getNodeList = function () {
     }).then((data) => {
       Object.keys(data.nodes).forEach((elem) => {
         nodes.push({
-          name: name,
-		  host: url,
-		  port: port
+          name: data.nodes[elem].name,
+		  host: data.nodes[elem].url,
+		  port: data.nodes[elem].port
         })
       })
       return resolve(nodes)
