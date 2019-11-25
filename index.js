@@ -20,7 +20,7 @@ const targetBlockTime = 90
 const backupSeeds = [
   { host: '45.63.35.51', port: 17910 },
   { host: '144.202.29.252', port: 17910 },
-  { host: '207.148.3.16', port: 17910 },
+  { host: '207.148.3.17', port: 17910 },
   { host: '207.148.6.195', port: 17910 },
   { host: '45.76.232.71', port: 17910 }
 ]
