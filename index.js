@@ -17,13 +17,14 @@ const NodeCache = require('node-cache')
 const TwoACoind = require('turtlecoin-rpc').TurtleCoind
 const BlockChainCache = require('turtlecoin-blockexplorer-cache')
 const targetBlockTime = 90
-const backupSeeds = [
-  { host: '45.63.35.51', port: 17910 },
-  { host: '144.202.29.252', port: 17910 },
-  { host: '207.148.3.17', port: 17910 },
-  { host: '207.148.6.195', port: 17910 },
-  { host: '45.76.232.71', port: 17910 }
-]
+//const backupSeeds = [
+//  { host: '45.63.35.51', port: 17910 },
+//  { host: '144.202.29.252', port: 17910 },
+//  { host: '207.148.3.17', port: 17910 },
+//  { host: '207.148.6.195', port: 17910 },
+//  { host: '45.76.232.71', port: 17910 }
+//]
+const nodeList = 'https://raw.githubusercontent.com/2acoin/2acoin-nodes-json/master/2acoin-nodes.json'
 const poolList = 'https://raw.githubusercontent.com/2acoin/2acoin-pools-json/master/v1/2acoin-pools.json'
 
 function Self (opts) {
@@ -35,7 +36,7 @@ function Self (opts) {
   this.bindPort = opts.bindPort || 8080
   this.defaultHost = opts.defaultHost || 'public.2acoin.org'
   this.defaultPort = opts.defaultPort || 17910
-  this.seeds = opts.seeds || backupSeeds
+  this.seeds = opts.seeds || []
   this.pools = opts.pools || []
 
   // Blockchain cache database options
@@ -649,9 +650,22 @@ function Self (opts) {
     })
   }
 
+  function getNodes () {
+    that._getNodeList().then((nodes) => {
+      that.seeds = nodes
+    }).catch((err) => {
+      that.emit('error', err)
+    })
+  }
+
   if (this.pools.length === 0) {
     getPools()
     this.poolUpdater = setInterval(getPools, (60 * 60 * 1000))
+  }
+
+  if (this.nodes.length === 0) {
+    getNodes()
+    this.nodeUpdater = setInterval(getNodes, (60 * 60 * 1000))
   }
 
   this._getGlobalHeight()
@@ -1287,7 +1301,7 @@ Self.prototype._getGlobalPoolHeight = function () {
     var promises = []
     for (var i = 0; i < this.pools.length; i++) {
       var node = this.pools[i]
-      var url = node.url
+      var url = node.api
       promises.push(this._getPoolNetworkInfo(url))
     }
     Promise.all(promises).then((results) => {
@@ -1327,7 +1341,7 @@ Self.prototype._getGlobalPoolDifficulty = function () {
     var promises = []
     for (var i = 0; i < this.pools.length; i++) {
       var node = this.pools[i]
-      var url = node.url
+      var url = node.api
       promises.push(this._getPoolNetworkInfo(url))
     }
     Promise.all(promises).then((results) => {
@@ -1388,11 +1402,35 @@ Self.prototype._getPoolList = function () {
     }).then((data) => {
       Object.keys(data.pools).forEach((elem) => {
         pools.push({
-          name: elem,
-          url: util.format('%sstats', data.pools[elem].api)
+          name: name,
+		  url: url,
+          api: util.format('%sstats', data.pools[elem].api),
+		  address: miningAddress
         })
       })
       return resolve(pools)
+    }).catch((err) => {
+      return reject(err)
+    })
+  })
+}
+
+Self.prototype._getNodeList = function () {
+  return new Promise((resolve, reject) => {
+    var nodes = []
+    Request({
+      method: 'GET',
+      uri: nodeList,
+      json: true
+    }).then((data) => {
+      Object.keys(data.nodes).forEach((elem) => {
+        nodes.push({
+          name: name,
+		  host: url
+		  port: port
+        })
+      })
+      return resolve(nodes)
     }).catch((err) => {
       return reject(err)
     })
