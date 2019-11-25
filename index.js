@@ -642,6 +642,7 @@ function Self (opts) {
   // Standard library timer setup
 
   var that = this
+  
   function getPools () {
     that._getPoolList().then((pools) => {
       that.pools = pools
@@ -663,7 +664,7 @@ function Self (opts) {
     this.poolUpdater = setInterval(getPools, (60 * 60 * 1000))
   }
 
-  if (this.nodes.length === 0) {
+  if (this.seeds.length === 0) {
     getNodes()
     this.nodeUpdater = setInterval(getNodes, (60 * 60 * 1000))
   }
@@ -1426,7 +1427,7 @@ Self.prototype._getNodeList = function () {
       Object.keys(data.nodes).forEach((elem) => {
         nodes.push({
           name: name,
-		  host: url
+		  host: url,
 		  port: port
         })
       })
